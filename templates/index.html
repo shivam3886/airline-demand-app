@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Airline Demand Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Popular Routes from {{ origin }}</h1>
+
+    <form method="GET" action="/">
+        <label for="origin">Enter Origin City Code:</label>
+        <input type="text" name="origin" value="{{ origin }}" required>
+        <button type="submit">Search</button>
+    </form>
+    <br>
+
+    {% if routes %}
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>Destination</th>
+                <th>Price (USD)</th>
+                <th>Distance (km)</th>
+                <th>Airline</th>
+            </tr>
+            {% for route in routes %}
+                <tr>
+                    <td>{{ route["destination"] }}</td>
+                    <td>{{ route["price"] }}</td>
+                    <td>{{ route["distance"] }}</td>
+                    <td>{{ route.get("airline", "N/A") }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Price Chart</h2>
+        {{ chart_html|safe }}
+
+        <h2>Insights</h2>
+        <ul>
+            <li>✈️ Cheapest Route: <strong>{{ cheapest.destination }}</strong> - ${{ cheapest.price }}</li>
+            <li>💰 Most Expensive Route: <strong>{{ most_expensive.destination }}</strong> - ${{ most_expensive.price }}</li>
+            <li>📊 Average Price (Top 10): ${{ average_price }}</li>
+        </ul>
+
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+</body>
+</html>
