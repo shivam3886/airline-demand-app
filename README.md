@@ -20,3 +20,12 @@ This is a Python web app that fetches airline booking market demand data using t
    ```bash
    git clone https://github.com/shivam3886/airline-demand-app.git
    cd airline-demand-app
+2. Install dependencies:
+    bash
+    pip install -r requirements.txt
+3. Replace API_TOKEN in app.py with your own API key from https://www.travelpayouts.com
+4. Run the app:
+   bash
+   python app.py
+5. Open your browser and go to:
+   http://127.0.0.1:8080
